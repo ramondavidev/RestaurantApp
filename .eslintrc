@@ -1,0 +1,17 @@
+{
+  "extends": "@react-native",
+  "rules": {
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "react/react-in-jsx-scope": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      },
+      {
+        "singleQuote": true,
+        "parser": "flow"
+      }
+    ]
+  }
+}
