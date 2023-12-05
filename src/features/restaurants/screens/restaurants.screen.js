@@ -1,17 +1,11 @@
-import { FlatList } from 'react-native';
-import { Searchbar } from 'react-native-paper';
+import { FlatList, TouchableOpacity } from 'react-native';
 import RestaurantInfoCard from '../components/restaurant-info-card.component';
 import styled from 'styled-components/native';
 import { SafeArea } from '../../../components/utility/safe-area.component';
 import { useContext } from 'react';
 import { RestaurantsContext } from '../../../services/restaurants/restaurants.context';
 import { ActivityIndicator } from 'react-native-paper';
-import { View } from 'react-native';
 import Search from '../components/search.component';
-
-const SearchContainer = styled.View`
-  padding: ${(props) => props.theme.space.md};
-`;
 
 const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -29,7 +23,7 @@ const LoadingContainer = styled.View`
   left: 50%;
 `;
 
-const RestaurantsScreen = () => {
+const RestaurantsScreen = ({ navigation }) => {
   const { isLoading, error, restaurants } = useContext(RestaurantsContext);
   return (
     <SafeArea>
@@ -42,7 +36,15 @@ const RestaurantsScreen = () => {
       <RestaurantList
         data={restaurants}
         renderItem={({ item }) => (
-          <RestaurantInfoCard restaurant={item} key={item.name} />
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('RestaurantDetail', {
+                restaurant: item,
+              })
+            }
+          >
+            <RestaurantInfoCard restaurant={item} key={item.name} />
+          </TouchableOpacity>
         )}
         keyExtractor={(item) => item.name}
       />
