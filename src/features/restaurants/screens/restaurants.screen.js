@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 import { SafeArea } from '../../../components/utility/safe-area.component';
 import { useContext } from 'react';
 import { RestaurantsContext } from '../../../services/restaurants/restaurants.context';
+import { FavouritesContext } from '../../../services/favourites/favourites.context';
 import { ActivityIndicator } from 'react-native-paper';
 import Search from '../components/search.component';
 
@@ -25,6 +26,8 @@ const LoadingContainer = styled.View`
 
 const RestaurantsScreen = ({ navigation }) => {
   const { isLoading, error, restaurants } = useContext(RestaurantsContext);
+  const { favourites } = useContext(FavouritesContext);
+
   return (
     <SafeArea>
       {isLoading && (
