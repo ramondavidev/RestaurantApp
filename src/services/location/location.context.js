@@ -19,7 +19,6 @@ export const LocationContextProvider = ({ children }) => {
     if (!keyword) {
       return;
     }
-    console.log(keyword);
     locationRequest(keyword.toLowerCase())
       .then(locationTransform)
       .then((result) => {

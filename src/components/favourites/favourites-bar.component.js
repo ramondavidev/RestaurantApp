@@ -11,7 +11,6 @@ export const FavouritesBar = ({ favourites, onNavigate }) => {
   if (!favourites.length) {
     return null;
   }
-  console.log(favourites);
   return (
     <FavouritesWrapper>
       <Spacer variant="left.large">
