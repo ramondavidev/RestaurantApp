@@ -8,8 +8,6 @@ export const loginRequest = async (email, password) => {
   try {
     const auth = getAuth();
 
-    console.log('got here!');
-
     const userCredential = await signInWithEmailAndPassword(
       auth,
       email,
@@ -20,9 +18,18 @@ export const loginRequest = async (email, password) => {
     console.log('user');
     return user;
   } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log('error', error);
+    return error;
+  }
+};
+
+export const registerRequest = async (email, password) => {
+  try {
+    const auth = getAuth();
+
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    console.log('register', res);
+    return res;
+  } catch (error) {
     return error;
   }
 };
