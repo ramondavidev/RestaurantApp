@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 import {
   AccountBackground,
   AccountCover,
@@ -11,12 +12,13 @@ import {
 import { Text } from '../../../components/typography/text.component';
 import { Spacer } from '../../../components/spacer/spacer.component';
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
+import { View } from 'react-native';
 
 export const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatedPassword, setRepeatedPassword] = useState('');
-  const { onRegister, error } = useContext(AuthenticationContext);
+  const { onRegister, isLoading, error } = useContext(AuthenticationContext);
   return (
     <AccountBackground>
       <AccountCover />
@@ -31,44 +33,44 @@ export const RegisterScreen = ({ navigation }) => {
           onChangeText={(u) => setEmail(u)}
           marginBottom="10px"
         />
-        <Spacer size="large">
-          <AuthInput
-            label="Password"
-            value={password}
-            textContentType="password"
-            secureTextEntry
-            autoCapitalize="none"
-            secure
-            onChangeText={(p) => setPassword(p)}
-            marginBottom="10px"
-          />
-        </Spacer>
-        <Spacer size="large">
-          <AuthInput
-            label="Repeat Password"
-            value={repeatedPassword}
-            textContentType="password"
-            secureTextEntry
-            autoCapitalize="none"
-            secure
-            onChangeText={(p) => setRepeatedPassword(p)}
-          />
-        </Spacer>
+        <AuthInput
+          label="Password"
+          value={password}
+          textContentType="password"
+          secureTextEntry
+          autoCapitalize="none"
+          secure
+          onChangeText={(p) => setPassword(p)}
+          marginBottom="10px"
+        />
+        <AuthInput
+          label="Repeat Password"
+          value={repeatedPassword}
+          textContentType="password"
+          secureTextEntry
+          autoCapitalize="none"
+          secure
+          onChangeText={(p) => setRepeatedPassword(p)}
+          marginBottom="10px"
+        />
         {error && (
           <ErrorContainer size="large">
             <Text variant="error">{error}</Text>
           </ErrorContainer>
         )}
-        <Spacer size="large">
+        {!isLoading ? (
           <AuthButton
             icon="email"
             mode="contained"
             onPress={() => onRegister(email, password, repeatedPassword)}
-            marginTop="10px"
           >
             Register
           </AuthButton>
-        </Spacer>
+        ) : (
+          <View style={{ paddingTop: '20px' }}>
+            <ActivityIndicator animating={true} color={MD2Colors.blue300} />
+          </View>
+        )}
       </AccountContainer>
       <AuthButton
         marginTop="10px"
