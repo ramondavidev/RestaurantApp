@@ -9,6 +9,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import Search from '../components/search.component';
 import { FavouritesBar } from '../../../components/favourites/favourites-bar.component';
 import { RestaurantList } from '../components/restaurant-list.styles';
+import { FadeInView } from '../../../components/animations/fade.animation';
 
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
@@ -51,7 +52,9 @@ const RestaurantsScreen = ({ navigation }) => {
               })
             }
           >
-            <RestaurantInfoCard restaurant={item} key={item.name} />
+            <FadeInView>
+              <RestaurantInfoCard restaurant={item} key={item.name} />
+            </FadeInView>
           </TouchableOpacity>
         )}
         keyExtractor={(item) => item.name}
